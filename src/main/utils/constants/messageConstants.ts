@@ -1,0 +1,11 @@
+export const TASK_TITLE_REQUIRED = 'Enter a title';
+export const TASK_TITLE_TOO_LONG = 'Title must be 255 characters or fewer';
+export const TASK_DESCRIPTION_TOO_LONG = 'Description must be 2000 characters or fewer';
+export const TASK_STATUS_REQUIRED = 'Select a status';
+export const TASK_DUE_DATE_REQUIRED = 'Enter a due date';
+export const TASK_DUE_DATE_INVALID = 'Enter a valid date';
+export const TASK_DUE_DATE_PAST = 'Due date must be in the future';
+export const TASK_DUE_TIME_INVALID = 'Enter a due time using the 24-hour clock, like 14:30';
+export const CREATE_PAGE_TITLE = 'Create a task';
+export const EDIT_STATUS_PAGE_TITLE = 'Update task status';
+export const DELETE_PAGE_TITLE = 'Are you sure you want to delete this task?';

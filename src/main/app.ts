@@ -35,10 +35,17 @@ glob
 
 setupDev(app, developmentMode);
 
+// not found handler
+app.use((req: express.Request, res: express.Response) => {
+  res.status(404);
+  res.render('not-found');
+});
+
 // error handler
-app.use((err: HTTPError, req: express.Request, res: express.Response) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: HTTPError, req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.log(err);
-  // set locals, only providing error in development
+
   res.locals.message = err.message;
   res.locals.error = env === 'development' ? err : {};
   res.status(err.status || 500);

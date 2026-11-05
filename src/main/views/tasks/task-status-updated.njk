@@ -1,0 +1,17 @@
+{% extends "template.njk" %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ govukPanel({ titleText: "Status updated", text: task.title }) }}
+      <p class="govuk-body">
+        The status is now {{ govukTag({ text: task.status.text, classes: task.status.classes }) }}
+      </p>
+      <p class="govuk-body">
+        <a class="govuk-link" href="/">View all tasks</a>
+      </p>
+    </div>
+  </div>
+{% endblock %}

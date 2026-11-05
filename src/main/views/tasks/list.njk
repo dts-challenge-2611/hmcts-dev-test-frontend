@@ -1,0 +1,41 @@
+{% extends "template.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">Tasks</h1>
+
+  {% if tasks.length %}
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Title</th>
+          <th scope="col" class="govuk-table__header">Status</th>
+          <th scope="col" class="govuk-table__header">Due</th>
+          <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for task in tasks %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{ task.title }}</td>
+            <td class="govuk-table__cell">{{ govukTag({ text: task.status.text, classes: task.status.classes }) }}</td>
+            <td class="govuk-table__cell">{{ task.dueDate }}</td>
+            <td class="govuk-table__cell govuk-!-text-align-right">
+              <a class="govuk-link govuk-!-margin-right-3" href="/tasks/{{ task.id }}/edit">
+                Edit<span class="govuk-visually-hidden"> {{ task.title }}</span>
+              </a>
+              <a class="govuk-link" href="/tasks/{{ task.id }}/delete">
+                Delete<span class="govuk-visually-hidden"> {{ task.title }}</span>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="govuk-body">You have no tasks.</p>
+  {% endif %}
+
+  {{ govukButton({ text: "Create task", href: "/tasks/new" }) }}
+{% endblock %}

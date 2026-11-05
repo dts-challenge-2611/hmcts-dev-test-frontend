@@ -1,0 +1,46 @@
+{% extends "template.njk" %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if errorSummary %}
+        {{ govukErrorSummary({ titleText: "There is a problem", errorList: errorSummary }) }}
+      {% endif %}
+
+      <h1 class="govuk-heading-l">Update task status</h1>
+
+      {{ govukSummaryList({
+        rows: [
+          { key: { text: "Title" }, value: { text: task.title } },
+          { key: { text: "Description" }, value: { text: task.description or "None" } },
+          { key: { text: "Due" }, value: { text: task.dueDate } }
+        ]
+      }) }}
+
+      <form method="post" action="/tasks/{{ task.id }}/edit" novalidate>
+
+        {{ govukRadios({
+          name: "status",
+          fieldset: { legend: { text: "Status", classes: "govuk-fieldset__legend--m" } },
+          errorMessage: { text: errors.status[0] } if errors and errors.status,
+          items: [
+            { value: "TODO", text: "To do", checked: status == "TODO" },
+            { value: "IN_PROGRESS", text: "In progress", checked: status == "IN_PROGRESS" },
+            { value: "DONE", text: "Done", checked: status == "DONE" }
+          ]
+        }) }}
+
+        <div class="govuk-button-group">
+          {{ govukButton({ text: "Save" }) }}
+          <a class="govuk-link" href="/">Cancel</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+{% endblock %}
